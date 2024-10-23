@@ -1,10 +1,14 @@
 package com.github.sandbox
 
-fun main() {
-    val pass = Password("5435345345345")
 
+fun main() {
+    val email = Email("william.henry.harrison@example-pet-store.com")
+    println(email.value)
 }
 
 
-@JvmInline
-value class Password(val password: String)
+
+
+
+
+
