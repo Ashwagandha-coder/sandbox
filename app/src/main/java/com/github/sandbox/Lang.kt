@@ -100,3 +100,42 @@ value class Url(val url: String) {
     }
 }
 
+/**
+ * Example of use Object
+ */
+
+
+object Analytics {
+
+    private val analytic = listOf(1, 2, 3, 4, 5) // FireBase
+
+    fun initialize() {
+        analytic
+    }
+
+    fun trackEvent(event: String) {
+        println("$event")
+    }
+
+}
+
+
+fun test() {
+    val throwable = Throwable()
+    throwable.localizedMessage
+}
+
+
+/**
+ * Example Exception
+ */
+
+
+class AuthenticationException(message: String) : Exception(message)
+
+fun login(username: String, password: String) {
+    if (username.isEmpty() || password.isEmpty()) {
+        throw AuthenticationException("Invalid username or password")
+    }
+    // logic.....
+}
