@@ -131,11 +131,16 @@ fun test() {
  */
 
 
-class AuthenticationException(message: String) : Exception(message)
+class AuthenticationException(val errorCode: Int, message: String? = null) : Exception(message) {
+    companion object {
+        const val INVALID_CREDENTIALS = 1001
+        const val USER_NOT_FOUND = 1002
+    }
+}
 
 fun login(username: String, password: String) {
     if (username.isEmpty() || password.isEmpty()) {
-        throw AuthenticationException("Invalid username or password")
+        throw AuthenticationException(1001, "Invalid username or password")
     }
     // logic.....
 }
