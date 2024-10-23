@@ -1,5 +1,7 @@
 package com.github.sandbox
 
+import java.net.URL
+
 
 /**
  * Example of use value class
@@ -65,4 +67,36 @@ value class PhoneNumber(val number: String) {
         TODO("Implement region-specific validation logic")
 }
 
+
+@JvmInline
+value class Url(val url: String) {
+    init {
+        require(isValidUrl(url)) { "Invalid URL format" }
+    }
+
+    fun isValidUrl(url: String): Boolean {
+        return try {
+            URL(url).toURI()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    fun getDomain(): String? {
+        return try {
+            URL(url).host
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun getPath(): String? {
+        return try {
+            URL(url).path
+        } catch (e: Exception) {
+            null
+        }
+    }
+}
 
