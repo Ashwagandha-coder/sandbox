@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "sandbox"
 include(":app")
 include(":myLib")
+include(":benchmark")
