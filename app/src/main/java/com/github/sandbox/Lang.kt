@@ -1,5 +1,12 @@
 package com.github.sandbox
 
+import android.content.SharedPreferences
+import android.system.Os.close
+import android.util.Log
+import android.view.View
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.onEach
+import java.io.Closeable
 import java.net.URL
 
 
@@ -120,12 +127,6 @@ object Analytics {
 }
 
 
-fun test() {
-    val throwable = Throwable()
-    throwable.localizedMessage
-}
-
-
 /**
  * Example Exception
  */
@@ -144,3 +145,105 @@ fun login(username: String, password: String) {
     }
     // logic.....
 }
+
+/**
+ * Example of use inline
+ */
+
+/**
+ * OnClick in View
+ */
+
+inline fun View.onClick(crossinline listener: (View) -> Unit) {
+    setOnClickListener { listener(it) }
+}
+
+/**
+ * Measure Time
+ */
+
+inline fun measureTimeMillis(block: () -> Unit): Long {
+    val start = System.currentTimeMillis()
+    println("Start Time - $start")
+    block()
+    val end = System.currentTimeMillis() - start
+    println("End Time - $end")
+    return end
+}
+
+/**
+ * Shared Pref
+ */
+
+
+inline fun SharedPreferences.edit(crossinline action: SharedPreferences.Editor.() -> Unit) {
+    val editor = edit()
+    action(editor)
+    editor.apply()
+}
+
+/**
+ * Logger
+ */
+
+inline fun log(message: () -> String) {
+    Log.d("MY TAG", message())
+}
+
+/**
+ * Use in Clonable
+ */
+
+
+inline fun <T : Closeable?, R> T.use(block: (T) -> R): R {
+    var exception: Throwable? = null
+    try {
+        return block(this)
+    } catch (e: Throwable) {
+        exception = e
+        throw e
+    } finally {
+        when {
+            this == null -> {}
+            exception == null -> close()
+            else -> try {
+                close()
+            } catch (closeException: Throwable) {
+                exception.addSuppressed(closeException)
+            }
+        }
+    }
+}
+
+/**
+ * OnEachIndexed in Flow
+ */
+
+inline fun <T> Flow<T>.onEachIndexed(crossinline action: suspend (index: Int, value: T) -> Unit): Flow<T> {
+    var index = 0
+    return onEach {
+        action(index++, it)
+    }
+}
+
+/**
+ * Example of use Sealed Class
+ */
+
+
+sealed class UiState {
+    data object Loading : UiState()
+    data class Success(val data: List<Any>) : UiState()
+    data class Error(val message: String) : UiState()
+}
+
+sealed interface OperationResult<T> {
+    data class Success<out T>(val data: String) : OperationResult<T>
+    data class Error(val error: String) : OperationResult<Nothing>
+}
+
+internal data object Configuration {
+
+}
+
+

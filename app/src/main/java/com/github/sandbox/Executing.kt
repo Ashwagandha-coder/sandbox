@@ -1,16 +1,34 @@
 package com.github.sandbox
 
 
+
+
 fun main() {
 
-    val list = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
-
-
-    list.map { it * 2 }.let {
-        print("$it ")
-    }
+    sampleTime()
 
 }
+
+fun sampleTime() {
+    val time = measureTimeMillis {
+        concatString("Array")
+    }
+}
+
+private fun concatString(string: String): String {
+    var temp = ""
+    repeat(10000) {
+        temp += string + it
+    }
+    println(temp)
+    return temp
+}
+
+fun sampleLog() {
+    log { "Logger My App" }
+}
+
+
 
 
 
