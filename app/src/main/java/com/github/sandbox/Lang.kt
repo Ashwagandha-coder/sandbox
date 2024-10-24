@@ -238,12 +238,26 @@ sealed class UiState {
 }
 
 sealed interface OperationResult<T> {
-    data class Success<out T>(val data: String) : OperationResult<T>
+    data class Success<T>(val data: String) : OperationResult<T>
     data class Error(val error: String) : OperationResult<Nothing>
 }
 
 internal data object Configuration {
+    const val TIME_OUT = 5000
+}
 
+data object UserEventLogger {
+
+    fun logEvent(event: Event) {// Implementation for logging the event
+        // This could involve writing to a file, sending data to analytics, etc.
+        println("Event logged: $event")
+    }
+
+    sealed class Event {
+        data class ButtonClick(val buttonId: String) : Event()
+        data class ScreenView(val screenName: String) : Event()
+        // ... other event types
+    }
 }
 
 
