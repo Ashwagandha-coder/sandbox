@@ -52,4 +52,19 @@ class Work {
 }
 
 
+enum class DayOfWeek {
+
+    Monday, Tuesday, Wensday, Thusday, Friday, Saturday, Sunday,
+
+}
+
+enum class Color(val label: String) {
+    Blue("blue"), Red("red"), Green("green")
+}
+
+
+fun fucking() {
+    val color = Color.entries
+}
+
 
