@@ -1,6 +1,5 @@
 package com.github.kotlinfeatures
 
-import java.util.logging.Logger
 
 interface DataSource<out T> {
     fun getItems(): List<T>
@@ -43,6 +42,6 @@ fun doing() {
 private fun printItems(dataSource: DataSource<Animal>) {
     val items = dataSource.getItems()
     for (item in items) {
-        println("Logger - log")
+        println("${item.name}")
     }
 }

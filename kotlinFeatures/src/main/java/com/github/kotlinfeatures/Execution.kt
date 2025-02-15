@@ -1,7 +1,7 @@
 package com.github.kotlinfeatures
 
 fun main() {
-    usingBox()
+    Work().ProductProcessor().fuckingPrintln()
 }
 
 class MyBox<T>(var item: T)
