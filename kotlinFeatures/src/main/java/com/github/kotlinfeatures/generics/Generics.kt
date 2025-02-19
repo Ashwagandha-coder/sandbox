@@ -1,4 +1,4 @@
-package com.github.kotlinfeatures
+package com.github.kotlinfeatures.generics
 
 
 interface DataSource<out T> {
